@@ -1,0 +1,35 @@
+<div class="py-16">
+    <div class="mx-auto max-w-8xl">
+        <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">All Available Rides</h2>
+
+        <!-- Search Form -->
+        <%= form_with url: search_rides_path, method: :get, local: true, class: "flex gap-4 mb-10" do %>
+        <%= text_field_tag :from, params[:from], placeholder: "From Location", class: "flex-grow px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-indigo-300 placeholder-gray-400 text-lg w-full" %>
+        <%= text_field_tag :to, params[:to], placeholder: "To Location", class: "flex-grow px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-indigo-300 placeholder-gray-400 text-lg w-full" %>
+        <%= submit_tag "Search", class: "px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-semibold rounded-lg shadow-md transition-all" %>
+        <% end %>
+
+        <!-- Rides List -->
+        <% if @rides.present? %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <% @rides.each do |ride| %>
+            <%= link_to ride_path(ride), class: "group block bg-white border border-gray-300 rounded-xl p-5 shadow-sm hover:border-indigo-600 hover:shadow-lg transition-all" do %>
+                <div class="mb-4">
+                <img src="https://via.placeholder.com/200x100" alt="Vehicle" class="rounded-lg w-full h-40 object-cover">
+                </div>
+                <div>
+                <h4 class="text-xl font-semibold text-gray-800 mb-2">
+                    <%= ride.departure_location %> → <%= ride.arrival_location %>
+                </h4>
+                <p class="text-sm text-gray-600">Driver: <%= ride.driver.email %></p>
+                <p class="text-lg text-indigo-600 font-bold mt-1">€<%= ride.price_per_seat %> per seat</p>
+                <p class="text-sm text-gray-500 mt-1">Departs: <%= ride.departure_time.strftime("%B %d, %Y %I:%M %p") %></p>
+                </div>
+            <% end %>
+            <% end %>
+        </div>
+        <% else %>
+        <p class="text-center text-gray-500 py-20">No rides match your search criteria. Please try adjusting the search fields.</p>
+        <% end %>
+    </div>
+</div>

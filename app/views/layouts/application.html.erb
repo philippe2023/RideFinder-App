@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "FaFa App" %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+    <%# Pagedone CSS %>
+    <link href="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/css/pagedone.css " rel="stylesheet"/>
+  </head>
+
+  <body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto py-8">
+      <%= render "shared/navbar" %>
+      <%= render "shared/flashes" %>
+      <%= yield %>
+      <%= render "shared/footer" %>
+    </div>
+
+    <%# Pagedone JS %>
+    <script src="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/js/pagedone.js"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<div class="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">My Bookings</h2>
+    <table class="w-full text-left border-collapse">
+        <thead>
+        <tr class="border-b">
+            <th class="py-3 px-4 text-sm font-medium text-gray-600">No</th>
+            <th class="py-3 px-4 text-sm font-medium text-gray-600">Departure</th>
+            <th class="py-3 px-4 text-sm font-medium text-gray-600">Arrival</th>
+            <th class="py-3 px-4 text-sm font-medium text-gray-600">Price</th>
+            <th class="py-3 px-4 text-sm font-medium text-gray-600">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @bookings.each_with_index do |booking, index| %>
+            <tr class="border-b hover:bg-gray-50">
+            <td class="py-3 px-4 text-gray-700"><%= index + 1 %></td>
+            <td class="py-3 px-4 text-gray-700"><%= booking.ride.departure_location %></td>
+            <td class="py-3 px-4 text-gray-700"><%= booking.ride.arrival_location %></td>
+            <td class="py-3 px-4 text-gray-700">€<%= booking.ride.price_per_seat %></td>
+            <td class="py-3 px-4 text-gray-700"><%= booking.status.capitalize %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+    <% if @bookings.empty? %>
+        <p class="text-gray-500 text-center mt-6">No bookings found.</p>
+    <% end %>
+</div>

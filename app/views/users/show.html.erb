@@ -1,0 +1,99 @@
+<div class="profile-container max-w-4xl mx-auto py-10">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <!-- Profile Header -->
+        <div class="bg-gradient-to-r from-blue-500 to-purple-500 p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <img class="h-20 w-20 rounded-full border-4 border-white"
+                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="<%= current_user.email %>">
+                </div>
+                <div class="ml-4">
+                    <h2 class="text-white text-2xl font-bold"><%= current_user.email %></h2>
+                    <p class="text-white mt-1">Joined <%= current_user.created_at.strftime('%B %Y') %></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Information -->
+        <div class="p-6">
+            <h3 class="text-lg font-bold text-gray-700 mb-4">Profile Information</h3>
+            <ul class="divide-y divide-gray-200">
+                <li class="py-2">
+                    <span class="text-gray-600 font-medium">Email:</span> <%= current_user.email %>
+                </li>
+                <li class="py-2">
+                    <span class="text-gray-600 font-medium">Role:</span> <%= current_user.role %>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section for Drivers -->
+        <% if current_user.driver? %>
+            <div class="p-6 bg-gray-50">
+                <h3 class="text-lg font-bold text-gray-700 mb-4">My Created Rides</h3>
+                <% if @created_rides.present? %>
+                    <table class="min-w-full table-auto border-collapse border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2">From</th>
+                                <th class="border border-gray-300 px-4 py-2">To</th>
+                                <th class="border border-gray-300 px-4 py-2">Departure Time</th>
+                                <th class="border border-gray-300 px-4 py-2">Seats Available</th>
+                                <th class="border border-gray-300 px-4 py-2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @created_rides.each do |ride| %>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2"><%= ride.departure_location %></td>
+                                    <td class="border border-gray-300 px-4 py-2"><%= ride.arrival_location %></td>
+                                    <td class="border border-gray-300 px-4 py-2"><%= ride.departure_time.strftime('%d %b %Y %H:%M') %></td>
+                                    <td class="border border-gray-300 px-4 py-2"><%= ride.available_seats %></td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <%= link_to "View Ride", ride_path(ride), class: "text-blue-600 hover:underline" %>
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                <% else %>
+                    <p class="text-gray-600">You have not created any rides yet.</p>
+                <% end %>
+            </div>
+        <% end %>
+
+        <!-- Section for Riders -->
+        <% if current_user.rider? %>
+            <div class="p-6 bg-gray-50">
+                <h3 class="text-lg font-bold text-gray-700 mb-4">My Bookings</h3>
+                <% if @booked_rides.present? %>
+                    <table class="min-w-full table-auto border-collapse border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2">Ride</th>
+                                <th class="border border-gray-300 px-4 py-2">Status</th>
+                                <th class="border border-gray-300 px-4 py-2">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @booked_rides.each do |booking| %>
+                                <tr>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <%= booking.ride.departure_location %> → <%= booking.ride.arrival_location %>
+                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2"><%= booking.status.capitalize %></td>
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <%= link_to "View Ride", ride_path(booking.ride), class: "text-blue-600 hover:underline" %>
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                <% else %>
+                    <p class="text-gray-600">You have no bookings yet.</p>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>

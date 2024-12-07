@@ -1,0 +1,45 @@
+<div class="bg-gradient-to-r from-blue-500 to-purple-500 p-8 rounded-xl shadow-lg">
+  <div class="max-w-5xl mx-auto flex items-center justify-between gap-4">
+    <div class="flex items-center gap-4">
+      <img src="https://via.placeholder.com/100" alt="Profile Picture" class="w-24 h-24 rounded-full border-4 border-white shadow-md">
+      <div>
+        <h1 class="text-2xl font-bold text-white"><%= current_user.first_name || current_user.email %></h1>
+        <p class="text-gray-200">Joined: <%= current_user.created_at.strftime('%B %Y') %></p>
+        <p class="text-gray-200">Role: <%= current_user.role %></p>
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <%= link_to "Edit Profile", edit_user_registration_path, class: "px-4 py-2 bg-white text-blue-500 rounded-lg shadow-md" %>
+      <%= link_to "Book a Ride", new_ride_path, class: "px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md" %>
+    </div>
+  </div>
+</div>
+
+<div class="mt-8 max-w-6xl mx-auto bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Booked Rides</h2>
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="border-b">
+        <th class="py-3 px-4 text-sm font-medium text-gray-600">No</th>
+        <th class="py-3 px-4 text-sm font-medium text-gray-600">Departure</th>
+        <th class="py-3 px-4 text-sm font-medium text-gray-600">Arrival</th>
+        <th class="py-3 px-4 text-sm font-medium text-gray-600">Price</th>
+        <th class="py-3 px-4 text-sm font-medium text-gray-600">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% current_user.bookings.each_with_index do |booking, index| %>
+        <tr class="border-b hover:bg-gray-50">
+          <td class="py-3 px-4 text-gray-700"><%= index + 1 %></td>
+          <td class="py-3 px-4 text-gray-700"><%= booking.ride.departure_location %></td>
+          <td class="py-3 px-4 text-gray-700"><%= booking.ride.arrival_location %></td>
+          <td class="py-3 px-4 text-gray-700">€<%= booking.ride.price_per_seat %></td>
+          <td class="py-3 px-4 text-gray-700"><%= booking.status.capitalize %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if current_user.bookings.empty? %>
+    <p class="text-gray-500 text-center mt-6">No booked rides yet.</p>
+  <% end %>
+</div>

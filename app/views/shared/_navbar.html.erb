@@ -1,0 +1,107 @@
+<nav class="py-5 border-b border-gray-200 z-10 w-full bg-white shadow" id="topnav">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center">
+      <!-- Logo -->
+      <%= link_to root_path, class: "flex items-center" do %>
+        <span class="ml-2 text-xl font-bold text-blue-600">FaFa App</span>
+      <% end %>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex space-x-8 gap-4">
+        <% if user_signed_in? %>
+          <% if current_user.driver? %>
+            <%= link_to "My Rides", rides_path, class: "text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+            <%= link_to "Create Ride", new_ride_path, class: "text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+          <% elsif current_user.rider? %>
+            <%= link_to "Available Rides", rides_path, class: "text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+            <%= link_to "My Bookings", bookings_path, class: "text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- User Profile / Authentication -->
+      <div class="flex items-center space-x-4">
+        <% if user_signed_in? %>
+          <!-- User Email Dropdown -->
+          <div class="relative">
+            <button
+              class="flex items-center space-x-2 text-gray-600 hover:text-blue-600 font-medium"
+              id="user-menu-button"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              <span><%= current_user.email %></span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+
+            <!-- Dropdown -->
+            <div class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden" id="user-menu">
+              <%= link_to "Profile", profile_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+            </div>
+          </div>
+        <% else %>
+          <!-- Login / Sign Up -->
+          <%= link_to "Login", new_user_session_path, class: "bg-blue-600 text-white rounded-full py-2 px-4 text-sm font-medium hover:bg-blue-700 transition duration-300" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "bg-gray-100 text-gray-700 rounded-full py-2 px-4 text-sm font-medium hover:bg-gray-200 transition duration-300" %>
+        <% end %>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden flex items-center text-gray-600 hover:text-blue-600 focus:outline-none" id="mobile-menu-button">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="hidden md:hidden mt-4 space-y-2" id="mobile-menu">
+      <% if user_signed_in? %>
+        <% if current_user.driver? %>
+          <%= link_to "My Rides", rides_path, class: "block text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+          <%= link_to "Create Ride", new_ride_path, class: "block text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+        <% elsif current_user.rider? %>
+          <%= link_to "Available Rides", rides_path, class: "block text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+          <%= link_to "My Bookings", bookings_path, class: "block text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+        <% end %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "block text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "block text-gray-600 hover:text-blue-600 font-medium transition duration-300" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+<!-- JavaScript for Dropdown and Mobile Menu -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const userMenuButton = document.getElementById("user-menu-button");
+    const userMenu = document.getElementById("user-menu");
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    // User dropdown toggle
+    if (userMenuButton && userMenu) {
+      userMenuButton.addEventListener("click", () => {
+        userMenu.classList.toggle("hidden");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+          userMenu.classList.add("hidden");
+        }
+      });
+    }
+
+    // Mobile menu toggle
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+    }
+  });
+</script>

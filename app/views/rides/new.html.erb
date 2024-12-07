@@ -1,0 +1,40 @@
+<%# app/views/rides/new.html.erb %>
+<h1 class="text-3xl font-bold text-center mb-8 mt-10">Create a New Ride</h1>
+
+<div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md mb-8">
+  <%= form_with model: @ride, url: rides_path, local: true do |f| %>
+    <div class="mb-4">
+      <%= f.label :departure_location, "Departure Location", class: "block text-sm font-bold mb-2" %>
+      <%= f.text_field :departure_location, class: "w-full px-4 py-2 border rounded-lg" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :arrival_location, "Arrival Location", class: "block text-sm font-bold mb-2" %>
+      <%= f.text_field :arrival_location, class: "w-full px-4 py-2 border rounded-lg" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :departure_time, "Departure Time", class: "block text-sm font-bold mb-2" %>
+      <%= f.datetime_local_field :departure_time, class: "w-full px-4 py-2 border rounded-lg" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :price_per_seat, "Price Per Seat (€)", class: "block text-sm font-bold mb-2" %>
+      <%= f.number_field :price_per_seat, class: "w-full px-4 py-2 border rounded-lg", step: 0.01 %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :available_seats, "Available Seats", class: "block text-sm font-bold mb-2" %>
+      <%= f.number_field :available_seats, class: "w-full px-4 py-2 border rounded-lg" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :additional_info, "Additional Information (optional)", class: "block text-sm font-bold mb-2" %>
+      <%= f.text_area :additional_info, rows: 3, class: "w-full px-4 py-2 border rounded-lg" %>
+    </div>
+
+    <div class="flex justify-end">
+      <%= f.submit "Create Ride", class: "px-6 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700" %>
+    </div>
+  <% end %>
+</div>
