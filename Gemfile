@@ -16,7 +16,7 @@ gem "stimulus-rails"
 # Build JSON APIs with ease
 gem "jbuilder"
 # to generate fake rides
-gem 'faker', '~> 2.20'
+gem 'faker', '~> 3.5'
 # TailwindCSS setup and utilities
 gem "tailwindcss-rails", "~> 2.0"
 gem "autoprefixer-rails"
