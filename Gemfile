@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Rails framework
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.0.1"
 # Modern asset pipeline for Rails
 gem "propshaft"
 # Use PostgreSQL as the database for Active Record
