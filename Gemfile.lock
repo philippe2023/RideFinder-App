@@ -134,7 +134,7 @@ GEM
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
-    font-awesome-sass (6.5.2)
+    font-awesome-sass (6.7.2)
       sassc (~> 2.0)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -394,7 +394,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   faker (~> 2.20)
-  font-awesome-sass (~> 6.1)
+  font-awesome-sass (~> 6.7)
   importmap-rails
   jbuilder
   kamal

@@ -25,7 +25,7 @@ gem "autoprefixer-rails"
 gem "devise"
 
 # Utility gems for forms and icons
-gem "font-awesome-sass", "~> 6.1"
+gem "font-awesome-sass", "~> 6.7"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 
