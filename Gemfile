@@ -18,7 +18,7 @@ gem "jbuilder"
 # to generate fake rides
 gem 'faker', '~> 2.20'
 # TailwindCSS setup and utilities
-gem "tailwindcss-rails", "~> 2.0"
+gem "tailwindcss-rails", "~> 4.0"
 gem "autoprefixer-rails"
 
 # Devise for user authentication
